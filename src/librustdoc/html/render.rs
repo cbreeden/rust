@@ -1660,8 +1660,9 @@ fn get_html_diff(w: &mut fmt::Formatter, md_text: &str, render_type: RenderType,
 }
 
 #[cfg(stage0)]
-fn get_html_diff(w: &mut fmt::Formatter, md_text: &str, render_type: RenderType) -> fmt::Result {
-    write!(w, "<div class='docblock'>{}</div>", Markdown(md_text, render_type))
+fn get_html_diff(w: &mut fmt::Formatter, md_text: &str, render_type: RenderType,
+                 prefix: &str) -> fmt::Result {
+    write!(w, "<div class='docblock'>{}{}</div>", prefix, Markdown(md_text, render_type))
 }
 
 fn document_short(w: &mut fmt::Formatter, item: &clean::Item, link: AssocItemLink,
@@ -1673,7 +1674,7 @@ fn document_short(w: &mut fmt::Formatter, item: &clean::Item, link: AssocItemLin
         } else {
             format!("{}", &plain_summary_line(Some(s)))
         };
-        get_html_diff(&markdown, render_type, prefix)?;
+        get_html_diff(w, &markdown, render_type, prefix)?;
     } else if !prefix.is_empty() {
         write!(w, "<div class='docblock'>{}</div>", prefix)?;
     }
@@ -1697,7 +1698,7 @@ fn render_assoc_const_value(item: &clean::Item) -> String {
 fn document_full(w: &mut fmt::Formatter, item: &clean::Item,
                  render_type: RenderType, prefix: &str) -> fmt::Result {
     if let Some(s) = item.doc_value() {
-        get_html_diff(format!("{}{}", md_render_assoc_item(item), s), render_type, prefix)?;
+        get_html_diff(w, s, render_type, prefix)?;
     } else if !prefix.is_empty() {
         write!(w, "<div class='docblock'>{}</div>", prefix)?;
     }

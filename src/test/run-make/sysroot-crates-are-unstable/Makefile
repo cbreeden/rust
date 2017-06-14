@@ -6,6 +6,7 @@ STABLE_CRATES := \
 	std \
 	core \
 	proc_macro \
+	bitflags \
 	rsbegin.o \
 	rsend.o \
 	dllcrt2.o \
