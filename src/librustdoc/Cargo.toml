@@ -28,7 +28,7 @@ syntax = { path = "../libsyntax" }
 syntax_pos = { path = "../libsyntax_pos" }
 pulldown-cmark = { version = "0.0.14", default-features = false }
 
-[target.'cfg(not(stage0))'.dependencies]
+[target.'cfg(not(any(stage0, stage1)))'.dependencies]
 html-diff = "0.0.3"
 
 [build-dependencies]

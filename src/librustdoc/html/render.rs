@@ -75,7 +75,7 @@ use html::item_type::ItemType;
 use html::markdown::{self, Markdown, MarkdownHtml, MarkdownSummaryLine, RenderType};
 use html::{highlight, layout};
 
-#[cfg(not(stage0))]
+#[cfg(not(any(stage0, stage1)))]
 use html_diff;
 
 /// A pair of name and its optional document.
@@ -1636,7 +1636,7 @@ fn document(w: &mut fmt::Formatter, cx: &Context, item: &clean::Item) -> fmt::Re
     Ok(())
 }
 
-#[cfg(not(stage0))]
+#[cfg(not(any(stage0, stage1)))]
 fn get_html_diff(w: &mut fmt::Formatter, md_text: &str, render_type: RenderType,
                  prefix: &str) -> fmt::Result {
     if render_type == RenderType::Pulldown {
@@ -1659,7 +1659,7 @@ fn get_html_diff(w: &mut fmt::Formatter, md_text: &str, render_type: RenderType,
     }
 }
 
-#[cfg(stage0)]
+#[cfg(any(stage0, stage1))]
 fn get_html_diff(w: &mut fmt::Formatter, md_text: &str, render_type: RenderType,
                  prefix: &str) -> fmt::Result {
     write!(w, "<div class='docblock'>{}{}</div>", prefix, Markdown(md_text, render_type))
