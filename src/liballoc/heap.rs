@@ -81,6 +81,7 @@ unsafe impl Alloc for Heap {
     }
 
     #[inline]
+    #[cold]
     fn oom(&mut self, err: AllocErr) -> ! {
         unsafe {
             __rust_oom(&err as *const AllocErr as *const u8)

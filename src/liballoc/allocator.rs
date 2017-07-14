@@ -541,6 +541,7 @@ pub unsafe trait Alloc {
     /// instead they should return an appropriate error from the
     /// invoked method, and let the client decide whether to invoke
     /// this `oom` method in response.
+    #[cold]
     fn oom(&mut self, _: AllocErr) -> ! {
         unsafe { ::core::intrinsics::abort() }
     }

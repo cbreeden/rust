@@ -87,6 +87,7 @@ mod new {
             (&*self).realloc(ptr, old_layout, new_layout)
         }
 
+        #[cold]
         fn oom(&mut self, err: AllocErr) -> ! {
             (&*self).oom(err)
         }
@@ -208,6 +209,7 @@ mod platform {
             }
         }
 
+        #[cold]
         fn oom(&mut self, err: AllocErr) -> ! {
             use core::fmt::{self, Write};
 
@@ -441,6 +443,7 @@ mod platform {
             }
         }
 
+        #[cold]
         fn oom(&mut self, err: AllocErr) -> ! {
             use core::fmt::{self, Write};
 
